@@ -7,4 +7,8 @@ class Ship
     @length = length
   end
 
+  def health
+    @length
+  end
+
 end
