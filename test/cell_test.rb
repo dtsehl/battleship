@@ -58,4 +58,50 @@ class CellTest < Minitest::Test
     assert_equal true, cell.fired_upon?
   end
 
+  def test_if_cell_can_be_rendered_as_period_if_not_fired_upon
+    cell = Cell.new("B4")
+
+    assert_equal ".", cell.render
+  end
+
+  def test_if_a_cell_can_be_rendered_as_M_if_cell_fired_upon_and_missed
+    cell = Cell.new("B4")
+
+    cell.fire_upon
+
+    assert_equal "M", cell.render
+  end
+
+  def test_if_a_cell_can_be_rendered_as_S_if_cell_fired_upon_and_has_ship_with_optional_boolean
+    cell = Cell.new("B4")
+    cruiser = Ship.new("Cruiser", 3)
+    cell.place_ship(cruiser)
+
+    assert_equal ".", cell.render
+    assert_equal "S", cell.render(true)
+  end
+
+  def test_if_a_cell_can_be_rendered_as_H_if_ship_hit
+    cell = Cell.new("B4")
+    cruiser = Ship.new("Cruiser", 3)
+    cell.place_ship(cruiser)
+    cell.fire_upon
+
+    assert_equal "H", cell.render
+    assert_equal false, cruiser.sunk?
+  end
+
+  def test_if_a_cell_can_be_rendered_as_X_and_ship_sunk
+    cell = Cell.new("B4")
+    cruiser = Ship.new("Cruiser", 3)
+    cell.place_ship(cruiser)
+    cell.fire_upon
+    cruiser.hit
+    cruiser.hit
+
+
+    assert_equal "X", cell.render
+    assert_equal true, cruiser.sunk?
+  end
+
 end
