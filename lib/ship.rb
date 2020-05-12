@@ -8,7 +8,19 @@ class Ship
   end
 
   def health
-    @length
+    
   end
 
+  def sunk?
+    if self.health <= 0
+      true
+    else
+      false
+    end
+  end
+
+  def hit
+
+
+  end
 end
