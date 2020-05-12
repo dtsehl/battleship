@@ -15,18 +15,21 @@ Communication Expectations (How and often will we communicate? How do we keep li
 
 Abilities & Growth Expectations (Technical strengths and areas for desired improvement):
 
-Workload Expectations (What features do we each want to work on?):
+Dan: Writing more helper methods for redundant code. Knowing when to create another class.
+Cam: More practice with integration tests (writing tests/making them run) that are more complicated. Knowing when to create another class.
 
-Workflow Expectations (Git workflow/Tools/Code Review/Reviewing Pull Requests/Debugging and Problem-solving Techniques):
+Workload Expectations (What features do we each want to work on?): Try to be equal, show up and make an effort.
 
-Pomodoro Break Schedule:
+Workflow Expectations (Git workflow/Tools/Code Review/Reviewing Pull Requests/Debugging and Problem-solving Techniques): Write good and helpful comments, and be open to discuss comments. Follow the Exceptional Version control from the rubric.
 
-Expectations for giving and receiving feedback:
+Pomodoro Break Schedule: Every 45 mins or so take a break.
 
-Additional Remote Considerations:
+Expectations for giving and receiving feedback: Slack/comments on github and code review.
 
-Project management tools we will use (GitHub projects or Trello are popular tools):
+Additional Remote Considerations: N/A
 
-Day 1 Agenda:
+Project management tools we will use (GitHub projects or Trello are popular tools): GitHub
 
-Additional Notes:
+Day 1 Agenda: Go over iteration 1 & 2 of the project. Review rubric. Write the DTR. Try code pairing on iteration 1.
+
+Additional Notes: N/A
