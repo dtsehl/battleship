@@ -24,18 +24,22 @@ class Board
     self.cells.include?(coordinate)
   end
 
-
-
   def valid_placement?(ship, coordinate)
+    lat_ords_verification = true
     lat_ords = ["A".ord, "B".ord, "C".ord, "D".ord]
       lat_ords.each_cons(ship.length).all? do |first, second|
-        coordinate.first.chop == first + 1
+      lat_ords_verification = (coordinate.first.chop == first + 1)
+      require 'pry'; binding.pry
       end
+    long_ords_verification = true
     long_ords = ["1".ord, "2".ord, "3".ord, "4".ord]
-      long_ords.each_cons(ship.length).all? do |first, second|
-        coordinate.last.chop == first + 1
-      end
+        long_ords.each_cons(ship.length).all? do |first, second|
+        long_ords_verification = (coordinate.last.chop == first + 1)
+        end
+    if lat_ords_verification == false || long_ords_verification == false
+      false
+    else
+      true
+    end
   end
-
-  
 end
