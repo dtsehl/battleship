@@ -14,4 +14,16 @@ class Board
       new_coords[coordinates] = Cell.new(coordinates)
     end
   end
+
+  def valid_coordinate?(coordinate)
+    self.cells.include?(coordinate)
+  end
+
+  def valid_placement?(ship, coordinate)
+    if coordinate.count == ship.length
+      true
+    elsif coordinate.count != ship.length
+      false
+    end
+  end
 end
