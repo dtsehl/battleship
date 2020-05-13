@@ -20,6 +20,11 @@ class Board
   end
 
   def valid_placement?(ship, coordinate)
+
+    coordinate.each_cons(ship.length).all? do |lat, long|
+    lat == long - 1
+  end
+
     if coordinate.count == ship.length
       true
     elsif coordinate.count != ship.length
