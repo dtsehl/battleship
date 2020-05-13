@@ -25,21 +25,21 @@ class Board
   end
 
   def valid_placement?(ship, coordinate)
-    lat_ords_verification = true
-    lat_ords = ["A".ord, "B".ord, "C".ord, "D".ord]
-      lat_ords.each_cons(ship.length).all? do |first, second|
-      lat_ords_verification = (coordinate.first.chop == first + 1)
-      require 'pry'; binding.pry
+    return false if ship.length != coordinate.length
+    lat_ords = coordinate.map {|coord| coord.split("").first}
+    long_ords = coordinate.map {|coord| coord.split("").last}
+    all_ords = coordinate.map {|coord| coord.split("")}
+
+    lat_ords_verification = lat_ords.each_cons(2).all? do |first, second|
+      first.ord + 1 == second.ord || first.ord == second.ord
       end
-    long_ords_verification = true
-    long_ords = ["1".ord, "2".ord, "3".ord, "4".ord]
-        long_ords.each_cons(ship.length).all? do |first, second|
-        long_ords_verification = (coordinate.last.chop == first + 1)
-        end
-    if lat_ords_verification == false || long_ords_verification == false
-      false
-    else
-      true
+    long_ords_verification = long_ords.each_cons(2).all? do |first, second|
+      first.ord + 1 == second.ord || first.ord == second.ord
+      end
+    diag_verification = all_ords.each_cons(2).all? do |first, second|
+      (first[0].ord + first[1].ord) + 1 == (second[0].ord + second[1].ord) || (first[0].ord + first[1].ord) == (second[0].ord + second[1].ord)
     end
+
+    lat_ords_verification && long_ords_verification && diag_verification
   end
 end
