@@ -6,27 +6,23 @@ require 'minitest/pride'
 
 class BoardTest < Minitest::Test
   def test_it_exists
-    skip
     board = Board.new
 
     assert_instance_of Board, board
   end
 
   def test_board_has_cells
-    skip
     board = Board.new
-
-    board.cells
+    board.create_cells
 
     assert_equal 16, board.cells.count
     assert_instance_of Hash, board.cells
   end
 
   def test_board_can_validate_coordinates
-    skip
     board = Board.new
 
-    board.cells
+    board.create_cells
 
     assert_equal true, board.valid_coordinate?("A1")
     assert_equal true, board.valid_coordinate?("D4")
@@ -36,7 +32,6 @@ class BoardTest < Minitest::Test
   end
 
   def test_board_can_validate_placements
-    skip
     board = Board.new
 
     cruiser = Ship.new("Cruiser", 3)
@@ -47,7 +42,6 @@ class BoardTest < Minitest::Test
   end
 
   def test_if_ship_placement_coordinates_are_consecutive
-    skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -59,7 +53,6 @@ class BoardTest < Minitest::Test
   end
 
   def test_ship_placement_coordinates_cannot_be_diagonal
-    skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -69,7 +62,6 @@ class BoardTest < Minitest::Test
   end
 
   def test_ship_placement_coordinates_can_be_valid
-    skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -94,11 +86,7 @@ class BoardTest < Minitest::Test
     assert_equal cruiser, cell_1.ship
     assert_equal cruiser, cell_2.ship
     assert_equal cruiser, cell_3.ship
+    assert_equal true, cell_3.ship == cell_2.ship
   end
 
 end
-
-
-# Questions for Tim:
-# 1) is the interaction patter for test cell on board has ship after placing correct? Or would cells be created before you place a cruiser on the board? Does it matter?
-# 2) The way it's currently set up the cell that the ship was placed on inside of the Board Class does not carry over its state of having a ship to the test. Why not? Is this the right way to try and solve this?
