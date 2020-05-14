@@ -1,4 +1,5 @@
 class Board
+  attr_reader :cells
 
   def initialize
     @lat_ords = []
@@ -6,8 +7,9 @@ class Board
     @cells = {}
   end
 
-  def cells
+  def create_cells
     coords = []
+    cells = {}
     lat = %w[A B C D]
     long = %w[1 2 3 4]
     lat.each do |latitude|
@@ -16,7 +18,7 @@ class Board
       end
     end
     coords.each do |coordinates|
-      @cells[coordinates] = Cell.new(coordinates)
+      cells[coordinates] = Cell.new(coordinates)
     end
     @cells
   end
@@ -34,8 +36,7 @@ class Board
   end
 
   def place(ship, coordinate)
-    self.cells
-    @cells.map do |coord, cell|
+    cells.map do |coord, cell|
       coordinate.each do |cell_1|
         @cells[cell_1].place_ship(ship)
       end
