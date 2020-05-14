@@ -31,6 +31,11 @@ class Board
     verification = ords.each_cons(2).all? do |first, second|
       (first[0].ord + first[1].ord) + 1 == (second[0].ord + second[1].ord) || (first[0].ord + first[1].ord) == (second[0].ord + second[1].ord)
     end
+    return false if coordinate.each do |coord|
+      @cells[coord].ship
+    end
+    else
+      true
   end
 
   def place(ship, coordinate)
@@ -40,5 +45,4 @@ class Board
       end
     end
   end
-
 end
