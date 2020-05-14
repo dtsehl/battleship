@@ -9,7 +9,6 @@ class Board
 
   def create_cells
     coords = []
-    cells = {}
     lat = %w[A B C D]
     long = %w[1 2 3 4]
     lat.each do |latitude|
@@ -18,9 +17,8 @@ class Board
       end
     end
     coords.each do |coordinates|
-      cells[coordinates] = Cell.new(coordinates)
+      @cells[coordinates] = Cell.new(coordinates)
     end
-    @cells
   end
 
   def valid_coordinate?(coordinate)
