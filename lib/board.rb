@@ -3,6 +3,7 @@ class Board
   def initialize
     @lat_ords = []
     @long_ords = []
+    @cells = {}
   end
 
   def cells
@@ -14,10 +15,10 @@ class Board
         coords << latitude + longitude
       end
     end
-    new_coords = {}
     coords.each do |coordinates|
-      new_coords[coordinates] = Cell.new(coordinates)
+      @cells[coordinates] = Cell.new(coordinates)
     end
+    @cells
   end
 
   def valid_coordinate?(coordinate)
@@ -31,4 +32,11 @@ class Board
       (first[0].ord + first[1].ord) + 1 == (second[0].ord + second[1].ord) || (first[0].ord + first[1].ord) == (second[0].ord + second[1].ord)
     end
   end
+
+  def place(ship, coordinate)
+    coordinate.each do |coord|
+      cells[coord].place_ship(ship)
+    end
+  end
+
 end
