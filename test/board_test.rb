@@ -95,3 +95,8 @@ class BoardTest < Minitest::Test
   end
 
 end
+
+
+# Questions for Tim:
+# 1) is the interaction patter for test cell on board has ship after placing correct? Or would cells be created before you place a cruiser on the board? Does it matter?
+# 2) The way it's currently set up the cell that the ship was placed on inside of the Board Class does not carry over its state of having a ship to the test. Why not? Is this the right way to try and solve this?

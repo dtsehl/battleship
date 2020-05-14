@@ -25,6 +25,10 @@ class Cell
     @fired_upon
   end
 
+  def ship
+    @ship
+  end
+
   def fire_upon
     if self.empty? == false
       ship.hit

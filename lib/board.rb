@@ -34,8 +34,11 @@ class Board
   end
 
   def place(ship, coordinate)
-    coordinate.each do |coord|
-      cells[coord].place_ship(ship)
+    self.cells
+    @cells.map do |coord, cell|
+      coordinate.each do |cell_1|
+        @cells[cell_1].place_ship(ship)
+      end
     end
   end
 
