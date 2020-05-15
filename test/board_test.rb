@@ -1,6 +1,7 @@
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
+require './lib/ship_placement'
 require 'minitest/autorun'
 require 'minitest/pride'
 
@@ -35,46 +36,68 @@ class BoardTest < Minitest::Test
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
-
     board.create_cells
 
-    assert_equal false, board.valid_placement?(cruiser, ["A1", "A2"])
-    assert_equal false, board.valid_placement?(submarine, ["A2", "A3", "A4"])
+    invalid_placement_1 = ShipPlacement.new(board, cruiser, ["A1", "A2"])
+
+    assert_equal false, invalid_placement_1.valid?
+
+    invalid_placement_2 = ShipPlacement.new(board, submarine, ["A2", "A3", "A4"])
+
+    assert_equal false, invalid_placement_2.valid?
   end
 
   def test_if_ship_placement_coordinates_are_consecutive
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
-
     board.create_cells
 
-    assert_equal false, board.valid_placement?(cruiser, ["A1", "A2", "A4"])
-    assert_equal false, board.valid_placement?(submarine, ["A1", "C1"])
-    assert_equal false, board.valid_placement?(cruiser, ["A3", "A2", "A1"])
-    assert_equal false, board.valid_placement?(submarine, ["C1", "B1"])
+    invalid_placement_1 = ShipPlacement.new(board, cruiser, ["A1", "A2", "A4"])
+
+    assert_equal false, invalid_placement_1.valid?
+
+    invalid_placement_2 = ShipPlacement.new(board, submarine, ["A1", "C1", "A4"])
+
+    assert_equal false, invalid_placement_2.valid?
+
+    invalid_placement_3 = ShipPlacement.new(board, cruiser, ["A3", "A2", "A1"])
+
+    assert_equal false, invalid_placement_3.valid?
+
+    invalid_placement_4 = ShipPlacement.new(board, submarine, ["C1", "B1"])
+
+    assert_equal false, invalid_placement_4.valid?
   end
 
   def test_ship_placement_coordinates_cannot_be_diagonal
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
-
     board.create_cells
 
-    assert_equal false, board.valid_placement?(cruiser, ["A1", "B2", "C3"])
-    assert_equal false, board.valid_placement?(submarine, ["C2", "D3"])
+    invalid_placement_1 = ShipPlacement.new(board, cruiser, ["A1", "B2", "C3"])
+
+    assert_equal false, invalid_placement_1.valid?
+
+    invalid_placement_2 = ShipPlacement.new(board, submarine, ["C2", "D3"])
+
+    assert_equal false, invalid_placement_2.valid?
   end
 
-  def test_ship_placement_coordinates_can_be_valid
+  def test_ship_placement_can_be_valid
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
-
     board.create_cells
 
-    assert_equal true, board.valid_placement?(submarine, ["A1", "A2"])
-    assert_equal true, board.valid_placement?(cruiser, ["B1", "C1", "D1"])
+    valid_placement_1 = ShipPlacement.new(board, submarine, ["A1", "A2"])
+
+    assert_equal true, valid_placement_1.valid?
+
+    valid_placement_2 = ShipPlacement.new(board, cruiser, ["B1", "C1", "D1"])
+
+    assert_equal true, valid_placement_2.valid?
   end
 
   def test_cell_on_board_has_ship_after_placing
@@ -99,14 +122,13 @@ class BoardTest < Minitest::Test
   def test_ships_cannot_overlap
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
-
+    submarine = Ship.new("Submarine", 2)
     board.create_cells
-
     board.place(cruiser, ["A1", "A2", "A3"])
 
-    submarine = Ship.new("Submarine", 2)
+    invalid_placement_1 = ShipPlacement.new(board, submarine, ["A1", "B1"])
 
-    assert_equal false, board.valid_placement?(submarine, ["A1", "B1"])
+    assert_equal false, invalid_placement_1.valid?
   end
 
 end

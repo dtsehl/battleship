@@ -25,21 +25,6 @@ class Board
     self.cells.include?(coordinate)
   end
 
-  def valid_placement?(ship, coordinate)
-     if ship.length != coordinate.length
-       @verification = false
-     end
-      if coordinate.each do |coord|
-        @cells[coord].ship != nil
-        @verification = false
-      end
-    end
-    ords = coordinate.map {|coord| coord.split("")}
-    verification = ords.each_cons(2).all? do |first, second|
-      (first[0].ord + first[1].ord) + 1 == (second[0].ord + second[1].ord) || (first[0].ord + first[1].ord) == (second[0].ord + second[1].ord)
-    end
-  end
-
   def place(ship, coordinate)
     cells.map do |coord, cell|
       coordinate.each do |cell_1|
