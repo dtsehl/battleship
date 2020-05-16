@@ -32,4 +32,8 @@ class Board
       end
     end
   end
+
+  def render
+    require "pry"; binding.pry
+  end
 end
