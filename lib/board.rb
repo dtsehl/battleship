@@ -5,6 +5,8 @@ class Board
     @lat_ords = []
     @long_ords = []
     @cells = {}
+    @length = 4
+    @width = 4
   end
 
   def create_cells
@@ -22,7 +24,7 @@ class Board
   end
 
   def valid_coordinate?(coordinate)
-    self.cells.include?(coordinate)
+    cells.include?(coordinate)
   end
 
   def place(ship, coordinate)
@@ -34,14 +36,21 @@ class Board
   end
 
   def render(optional = false)
-     # p [[" ", " 1 ", "2 ", "3 ", "4 ", "\nA "],[@cells["A1"].render, " ", @cells["A2"].render, " ", @cells["A3"].render, " ", @cells["A4"].render].join,
-     # ["\nB ", @cells["B1"].render, " ", @cells["B2"].render, " ", @cells["B3"].render, " ", @cells["B4"].render].join,
-     # ["\nC ", @cells["C1"].render, " ", @cells["C2"].render, " ", @cells["C3"].render, " ", @cells["C4"].render].join,
-     # ["\nD ", @cells["D1"].render, " ", @cells["D2"].render, " ", @cells["D3"].render, " ", @cells["D4"].render, "\n"].join].join
-    " 1 2 3 4
-A #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render}
-B #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render(true)}
-C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render}
-D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render}\n"
+    if optional == false
+      rendered_array = @cells.map do |coord, data|
+        data.render
+      end
+    else
+      rendered_array = @cells.map do |coord, data|
+        data.render(true)
+      end
+    end
+
+    line_1 = "  1 2 3 4 \n"
+    line_2 = "A #{rendered_array[0]} #{rendered_array[1]} #{rendered_array[2]} #{rendered_array[3]} \n"
+    line_3 = "B #{rendered_array[4]} #{rendered_array[5]} #{rendered_array[6]} #{rendered_array[7]} \n"
+    line_4 = "C #{rendered_array[8]} #{rendered_array[9]} #{rendered_array[10]} #{rendered_array[11]} \n"
+    line_5 = "D #{rendered_array[12]} #{rendered_array[13]} #{rendered_array[14]} #{rendered_array[15]} \n"
+    render = line_1 + line_2 + line_3 + line_4 + line_5
   end
 end
