@@ -39,7 +39,7 @@ class Cell
   end
 
   def render(optional = false)
-    if optional == true && self.empty? == false
+    if (optional == true) && (empty? == false) && (@fired_upon == false)
       "S"
     elsif @fired_upon == false
       "."
