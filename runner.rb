@@ -2,10 +2,7 @@ require './lib/ship'
 require './lib/cell'
 require './lib/board'
 require './lib/ship_placement'
+require './lib/starter'
 
-board = Board.new
-cruiser = Ship.new("Cruiser", 3)
-submarine = Ship.new("Submarine", 2)
-board.create_cells
-board.place(cruiser, ["A1", "A2", "A3"])
-board.render
+game = Starter.new
+game.start_game
