@@ -135,11 +135,11 @@ class BoardTest < Minitest::Test
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
+
     board.create_cells
     board.place(cruiser, ["A1", "A2", "A3"])
 
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
-
     assert_equal "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n", board.render(true)
   end
 
@@ -150,18 +150,13 @@ class BoardTest < Minitest::Test
     board.create_cells
     board.place(cruiser, ["A1", "A2", "A3"])
     board.place(submarine, ["C1", "D1"])
-
-    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
-
     board.cells["A1"].fire_upon
     board.cells["B4"].fire_upon
     board.cells["C1"].fire_upon
     board.cells["D1"].fire_upon
 
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
     assert_equal "  1 2 3 4 \nA H . . . \nB . . . M \nC X . . . \nD X . . . \n", board.render
-
     assert_equal "  1 2 3 4 \nA H S S . \nB . . . M \nC X . . . \nD X . . . \n", board.render(true)
-
   end
-
 end
