@@ -123,6 +123,13 @@ class Starter
       turn.player_shot
       turn.computer_shot
     end
+    if find_winner == "I won!"
+      puts "I won!"
+      start_game
+    elsif find_winner == "You won!"
+      puts "You won!"
+      start_game
+    end
   end
 
 end

@@ -15,10 +15,11 @@ class Turn
   def player_shot
     puts "Enter the coordinate for your shot:"
     shot = gets.chomp
-    while @board_2.cells.keys.include?(shot) == false
-      puts "Please enter a valid coordinate:"
+    while @board_1.cells.keys.include?(shot) == false || @board_1.cells[shot].fired_upon? == true
+      puts "Please re-enter a valid coordinate. It's either invalid or you have chosen it before."
       shot = gets.chomp
     end
+
     @board_1.cells[shot].fire_upon
 
     if @board_1.cells[shot].render == "M"
