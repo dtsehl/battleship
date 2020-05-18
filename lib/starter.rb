@@ -34,6 +34,8 @@ class Starter
     puts "The Cruiser is three units long and the Submarine is two units long."
 
     player_place_ships
+
+    play_turns
   end
 
   def computer_place_ships
@@ -69,7 +71,7 @@ class Starter
   end
 
   def player_place_ships
-    @user_board.render
+    puts @user_board.render
 
     puts "Enter the squares for the Cruiser (3 spaces):"
     puts ">"
@@ -85,7 +87,7 @@ class Starter
     end
 
     @user_board.place(@user_cruiser, cruiser_spaces)
-    @user_board.render(true)
+    puts @user_board.render(true)
 
     puts "Enter the squares for the Submarine (2 spaces):"
     puts ">"
@@ -101,6 +103,26 @@ class Starter
     end
 
     @user_board.place(@user_submarine, sub_spaces)
-    @user_board.render(true)
+    puts @user_board.render(true)
   end
+
+  def find_winner
+    if @user_cruiser.sunk? == true && @user_submarine.sunk? == true
+      "I won!"
+    elsif @computer_cruiser.sunk? == true && @computer_submarine.sunk? == true
+      "You won!"
+    else
+      "No winner"
+    end
+  end
+
+  def play_turns
+    while find_winner == "No winner"
+      turn = Turn.new(@computer_board, @user_board)
+      turn.display_boards
+      turn.player_shot
+      turn.computer_shot
+    end
+  end
+
 end
