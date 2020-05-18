@@ -27,13 +27,36 @@ class Starter
   end
 
   def computer_place_ships
-    ords = @computer_board.cells.keys.map do |coord_1|
-      coord_1.split("")
+    horiz_3 = []
+    # vert_ords = @computer_board.cells.keys.map {|coord_1| coord_1.split("")}
+    # vert_3 = []
+    placement_3 = @computer_board.cells.keys
+    placement_3.each_cons(3) do |coords|
+      horiz_3 << coords
     end
-    placement = ords.each_cons(2).all? do |first, second|
-     (first[0].ord + first[1].ord) + 1 == (second[0].ord + second[1].ord) || (first[0].ord + first[1].ord) == (second[0].ord + second[1].ord)
+    # vert_ords.each_cons(3) do |first, second|
+    #   if (first[0].ord + first[1].ord) + 1 == (second[0].ord + second[1].ord)
+    #     vert_3 << first.join
+    #     vert_3 << second.join
+    #   end
+    # end
+    horiz_2 = []
+    placement_2 = @computer_board.cells.keys
+    placement_2.each_cons(2) do |coords|
+      horiz_2 << coords
     end
-    @computer_board.place[@computer_cruiser, placement]
+    horiz_3.delete_at(2)
+    horiz_3.delete_at(2)
+    horiz_3.delete_at(4)
+    horiz_3.delete_at(4)
+    horiz_3.delete_at(6)
+    horiz_3.delete_at(6)
+    horiz_2.delete_at(3)
+    horiz_2.delete_at(6)
+    horiz_2.delete_at(9)
+    @computer_board.place(@computer_cruiser, horiz_3.sample)
+    @computer_board.place(@computer_submarine, horiz_2.sample)
+    require "pry"; binding.pry
   end
 
 end
