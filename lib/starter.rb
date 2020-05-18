@@ -17,13 +17,23 @@ class Starter
   def play
     @computer_board = Board.new
     @user_board = Board.new
+
     @computer_cruiser = Ship.new("Cruiser", 3)
     @computer_submarine = Ship.new("Submarine", 2)
+
     @user_cruiser = Ship.new("Cruiser", 3)
     @user_submarine = Ship.new("Submarine", 2)
+
     @computer_board.create_cells
     @user_board.create_cells
+
     computer_place_ships
+
+    puts "I have laid out my ships on the grid."
+    puts "You now need to lay out your two ships."
+    puts "The Cruiser is three units long and the Submarine is two units long."
+
+    player_place_ships
   end
 
   def computer_place_ships
@@ -56,7 +66,41 @@ class Starter
     horiz_2.delete_at(9)
     @computer_board.place(@computer_cruiser, horiz_3.sample)
     @computer_board.place(@computer_submarine, horiz_2.sample)
-    require "pry"; binding.pry
   end
 
+  def player_place_ships
+    @user_board.render
+
+    puts "Enter the squares for the Cruiser (3 spaces):"
+    puts ">"
+
+    cruiser_spaces = gets.chomp.split(" ")
+    placement = ShipPlacement.new(@user_board, @user_cruiser, cruiser_spaces)
+    while placement.valid? == false
+      puts "Those are invalid coordinates. Please try again:"
+      puts ">"
+
+      cruiser_spaces = gets.chomp.split(" ")
+      placement = ShipPlacement.new(@user_board, @user_cruiser, cruiser_spaces)
+    end
+
+    @user_board.place(@user_cruiser, cruiser_spaces)
+    @user_board.render(true)
+
+    puts "Enter the squares for the Submarine (2 spaces):"
+    puts ">"
+
+    sub_spaces = gets.chomp.split(" ")
+    placement = ShipPlacement.new(@user_board, @user_submarine, sub_spaces)
+    while placement.valid? == false
+      puts "Those are invalid coordinates. Please try again:"
+      puts ">"
+
+      sub_spaces = gets.chomp.split(" ")
+      placement = ShipPlacement.new(@user_board, @user_submarine, sub_spaces)
+    end
+
+    @user_board.place(@user_submarine, sub_spaces)
+    @user_board.render(true)
+  end
 end
