@@ -27,6 +27,7 @@ class Starter
     @computer_board.create_cells
     @user_board.create_cells
 
+    create_computer_placements
     computer_place_ships
 
     puts "I have laid out my ships on the grid."
@@ -38,7 +39,7 @@ class Starter
     play_turns
   end
 
-  def computer_place_ships
+  def create_computer_placements
     horiz_3 = []
     vert_3 = []
     placement_3 = @computer_board.cells.keys
@@ -49,50 +50,49 @@ class Starter
     vert_3_ords = @computer_board.cells.keys.map {|coord_1| coord_1.split("")}
      vert_3_ords.each_cons(9).all? do |first, second, third, fourth, fifth, sixth, seventh, eighth, ninth|
        if (((first[0].ord + 1) == (fifth[0].ord)) && (fifth[0].ord + 1 == ninth[0].ord)) && ((first[1].ord == fifth[1].ord) && (fifth[1].ord == ninth[1].ord))
-         vert_3 << first.join
-         vert_3 << fifth.join
-         vert_3 << ninth.join
+         vert_3 << [first.join, fifth.join, ninth.join]
        end
      end
 
-     require "pry"; binding.pry
+    @valid_3_coords = vert_3 + horiz_3
 
     horiz_2 = []
+    vert_2 = []
     placement_2 = @computer_board.cells.keys
     placement_2.each_cons(2) do |coords|
       horiz_2 << coords
     end
 
-    horiz_3.delete_at(2)
-    horiz_3.delete_at(2)
-    horiz_3.delete_at(4)
-    horiz_3.delete_at(4)
-    horiz_3.delete_at(6)
-    horiz_3.delete_at(6)
+    vert_2_ords = @computer_board.cells.keys.map {|coord_1| coord_1.split("")}
+     vert_2_ords.each_cons(5).all? do |first, second, third, fourth, fifth|
+       if ((first[0].ord + 1) == (fifth[0].ord)) && ((first[1].ord == fifth[1].ord))
+         vert_2 << [first.join, fifth.join]
+       end
+     end
 
-    horiz_2.delete_at(3)
-    horiz_2.delete_at(6)
-    horiz_2.delete_at(9)
+   @valid_2_coords = vert_2 + horiz_2
+  end
 
-    horiz_3_picked_coords = horiz_3.sample
+  def computer_place_ships
+    three_picked_coords = @valid_3_coords.sample
 
-    valid_placement_3 = ShipPlacement.new(@computer_board, @computer_cruiser, horiz_3_picked_coords)
+    valid_placement_3 = ShipPlacement.new(@computer_board, @computer_cruiser, three_picked_coords)
     while valid_placement_3.valid? == false
-      horiz_3_picked_coords = horiz_3.sample
-      valid_placement_3 = ShipPlacement.new(@computer_board, @computer_cruiser, horiz_3_picked_coords)
+      three_picked_coords = @valid_3_coords.sample
+      valid_placement_3 = ShipPlacement.new(@computer_board, @computer_cruiser, three_picked_coords)
     end
 
-    @computer_board.place(@computer_cruiser, horiz_3_picked_coords)
+    @computer_board.place(@computer_cruiser, three_picked_coords)
 
-    horiz_2_picked_coords = horiz_2.sample
+    two_picked_coords = @valid_2_coords.sample
 
-    valid_placement_2 = ShipPlacement.new(@computer_board, @computer_submarine, horiz_2_picked_coords)
+    valid_placement_2 = ShipPlacement.new(@computer_board, @computer_submarine, two_picked_coords)
     while valid_placement_2.valid? == false
-      horiz_2_picked_coords = horiz_2.sample
-      valid_placement_2 = ShipPlacement.new(@computer_board, @computer_submarine, horiz_2_picked_coords)
+      two_picked_coords = @valid_2_coords.sample
+      valid_placement_2 = ShipPlacement.new(@computer_board, @computer_submarine, two_picked_coords)
     end
 
-    @computer_board.place(@computer_submarine, horiz_2_picked_coords)
+    @computer_board.place(@computer_submarine, two_picked_coords)
   end
 
   def player_place_ships
