@@ -64,6 +64,20 @@ class ShipPlacementTest < Minitest::Test
     assert_equal true, valid_placement.is_not_diagonal?
   end
 
+  def test_garbage_placement_is_invalid
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    board.create_cells
+
+    invalid_placement = ShipPlacement.new(board, cruiser, ["Z1", "Z2", "Z3"])
+
+    assert_equal true, invalid_placement.is_garbage?
+
+    valid_placement = ShipPlacement.new(board, cruiser, ["A1", "A2", "A3"])
+
+    assert_equal true, valid_placement.is_not_diagonal?
+  end
+
   def test_valid_works
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)

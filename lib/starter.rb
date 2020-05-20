@@ -1,7 +1,5 @@
 class Starter
 
-
-
   def start_game
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter q to quit."
@@ -102,6 +100,7 @@ class Starter
     puts ">"
 
     cruiser_spaces = gets.chomp.split(" ")
+
     placement = ShipPlacement.new(@user_board, @user_cruiser, cruiser_spaces)
     while placement.valid? == false
       puts "Those are invalid coordinates. Please try again:"
@@ -118,6 +117,7 @@ class Starter
     puts ">"
 
     sub_spaces = gets.chomp.split(" ")
+
     placement = ShipPlacement.new(@user_board, @user_submarine, sub_spaces)
     while placement.valid? == false
       puts "Those are invalid coordinates. Please try again:"
@@ -150,9 +150,17 @@ class Starter
     end
     if find_winner == "I won!"
       puts "I won!"
+      puts "=============COMPUTER BOARD============="
+      puts @computer_board.render(true)
+      puts "==============PLAYER BOARD=============="
+      puts @user_board.render(true)
       start_game
     elsif find_winner == "You won!"
       puts "You won!"
+      puts "=============COMPUTER BOARD============="
+      puts @computer_board.render(true)
+      puts "==============PLAYER BOARD=============="
+      puts @user_board.render(true)
       start_game
     end
   end

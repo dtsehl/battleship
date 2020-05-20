@@ -7,10 +7,16 @@ class ShipPlacement
   end
 
   def valid?
-    if valid_length? == false || overlapping_ships? == true || is_not_diagonal? == false
+    if is_garbage? == true || valid_length? == false || overlapping_ships? == true || is_not_diagonal? == false
       false
     else
       true
+    end
+  end
+
+  def is_garbage?
+    @desired_coordinates.any? do |coord|
+      @board.cells[coord] == nil
     end
   end
 
