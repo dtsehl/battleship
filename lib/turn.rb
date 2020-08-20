@@ -7,9 +7,9 @@ class Turn
 
   def display_boards
     puts "=============COMPUTER BOARD============="
-    puts @board_1.render(true)
+    puts @board_1.render
     puts "==============PLAYER BOARD=============="
-    puts @board_2.render(true)
+    puts @board_2.render
   end
 
   def player_shot

@@ -111,7 +111,7 @@ class Starter
     end
 
     @user_board.place(@user_cruiser, cruiser_spaces)
-    puts @user_board.render(true)
+    puts @user_board.render
 
     puts "Enter the squares for the Submarine (2 spaces):"
     puts ">"
@@ -128,7 +128,7 @@ class Starter
     end
 
     @user_board.place(@user_submarine, sub_spaces)
-    puts @user_board.render(true)
+    puts @user_board.render
   end
 
   def find_winner
@@ -151,16 +151,16 @@ class Starter
     if find_winner == "I won!"
       puts "I won!"
       puts "=============COMPUTER BOARD============="
-      puts @computer_board.render(true)
+      puts @computer_board.render
       puts "==============PLAYER BOARD=============="
-      puts @user_board.render(true)
+      puts @user_board.render
       start_game
     elsif find_winner == "You won!"
       puts "You won!"
       puts "=============COMPUTER BOARD============="
-      puts @computer_board.render(true)
+      puts @computer_board.render
       puts "==============PLAYER BOARD=============="
-      puts @user_board.render(true)
+      puts @user_board.render
       start_game
     end
   end
